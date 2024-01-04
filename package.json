@@ -10,6 +10,7 @@
   "author": "keb",
   "license": "",
   "devDependencies": {
-    "electron": "^28.1.0"
+    "electron": "^28.1.0",
+    "leaflet": "^1.9.4"
   }
 }

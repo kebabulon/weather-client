@@ -3,18 +3,30 @@
   <head>
     <meta charset="UTF-8">
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; img-src 'self' https://*.tile.osm.org/;">
     <title> Weather App </title>
     <link rel="stylesheet" href="stylesheet.css">
+
+    <link rel="stylesheet" href="node_modules/leaflet/dist/leaflet.css">
+    <script src="node_modules/leaflet/dist/leaflet.js"></script>
   </head>
   <body>
-    <!-- TODO: change these to buttons instead of hrefs -->
-    <ul id="navbar">
-    <li><a target="mainframe" href="pages/filemanagement.html">Работа с файлами</a></li>
-    <li><a target="mainframe" href="pages/analyze.html">Анализ</a></li>
-    <li><a target="mainframe" href="pages/trends.html">Тренды</a></li>
-    <li><a target="mainframe" href="pages/predict.html">Предскизиние</a></li>
-    </ul> 
-    <iframe name="mainframe"></iframe>
+    <div class="topnav">
+      <a target="mainframe" href="pages/filemanagement.html">Работа с файлами</a>
+      <a target="mainframe" href="pages/analyze.html">Анализ</a>
+      <a target="mainframe" href="pages/trends.html">Тренды</a>
+      <a target="mainframe" href="pages/predict.html">Предскизиние</a>
+    </div> 
+    <div class="mainholder">
+      <div class="mapholder">
+        <div id="map"></div>
+      </div>
+      <div class="frameholder">
+        <iframe id="mainframe" name="mainframe"></iframe>
+      </div>
+    </div>
+
+
+    <script src="index.js"></script>
   </body>
 </html>
