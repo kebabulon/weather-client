@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <!-- https://developer.mozilla.org/en-us/docs/web/http/csp -->
+    <meta http-equiv="content-security-policy" content="default-src 'self'; script-src 'self';">
+    <title> weather app </title>
+    <link rel="stylesheet" href="stylesheet.css">
+  </head>
+  <body>
+    <div>
+        <form>
+            <div>
+                <label for="name">Имя: </label>
+                <input type="text" name="name" id="name" required />
+            </div>
+            <div>
+                <label for="password">Пароль: </label>
+                <input type="password" name="password" id="password" required />
+            </div>
+            <div>
+                <input type="submit" value="Логин" />
+            </div>
+        </form>
+    </div>
+  </body>
+</html>
+

@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset="UTF-8">
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; img-src 'self' https://*.tile.osm.org/;">
-    <title> Weather App </title>
+    <meta charset="utf-8">
+    <!-- https://developer.mozilla.org/en-us/docs/web/http/csp -->
+    <meta http-equiv="content-security-policy" content="default-src 'self'; script-src 'self'; img-src 'self' https://*.tile.osm.org/;">
+    <title> weather app </title>
     <link rel="stylesheet" href="stylesheet.css">
 
     <link rel="stylesheet" href="node_modules/leaflet/dist/leaflet.css">
@@ -12,17 +12,17 @@
   </head>
   <body>
     <div class="topnav">
-      <a target="mainframe" href="pages/filemanagement.html">Работа с файлами</a>
-      <a target="mainframe" href="pages/analyze.html">Анализ</a>
-      <a target="mainframe" href="pages/trends.html">Тренды</a>
-      <a target="mainframe" href="pages/predict.html">Предскизиние</a>
+      <a target="mainframe" href="pages/filemanagement.html">работа с файлами</a>
+      <a target="mainframe" href="pages/analyze.html">анализ</a>
+      <a target="mainframe" href="pages/trends.html">тренды</a>
+      <a target="mainframe" href="pages/predict.html">предскизиние</a>
     </div> 
     <div class="mainholder">
       <div class="mapholder">
         <div id="map"></div>
       </div>
       <div class="frameholder">
-        <iframe id="mainframe" name="mainframe"></iframe>
+        <iframe id="mainframe" name="mainframe" frameborder="0" ></iframe>
       </div>
     </div>
 

@@ -1,7 +1,7 @@
 // main.js
 
 // Modules to control application life and create native browser window
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, session } = require('electron')
 const path = require('node:path')
 
 const createWindow = () => {
@@ -13,6 +13,28 @@ const createWindow = () => {
       preload: path.join(__dirname, 'preload.js')
     }
   })
+
+  // const cookie = { url: '/', name: 'token', value: 'TEST' }
+  // session.defaultSession.cookies.set(cookie)
+  //   .then(() => {
+  //     // success
+  //   }, (error) => {
+  //     console.error(error)
+  //   }) 
+
+
+  session.defaultSession.cookies.get({})
+    .then((cookies) => {
+      console.log(cookies)
+      // TODO: check if the token cookie exists
+      if (cookies['token'] === undefined) {
+        mainWindow.loadFile('register.html')
+      } else {
+        // TODO: verify token
+      }
+    }).catch((error) => {
+      console.log(error)
+    })
 
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
