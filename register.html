@@ -9,20 +9,45 @@
   </head>
   <body>
     <div>
-        <form>
-            <div>
-                <label for="name">Имя: </label>
-                <input type="text" name="name" id="name" required />
-            </div>
-            <div>
-                <label for="password">Пароль: </label>
-                <input type="password" name="password" id="password" required />
-            </div>
-            <div>
-                <input type="submit" value="Логин" />
-            </div>
-        </form>
+        <div id="logincontainer">
+            <form>
+                <div>
+                    <label for="name">Имя: </label>
+                    <input type="text" name="name" id="name" required />
+                </div>
+                <div>
+                    <label for="password">Пароль: </label>
+                    <input type="password" name="password" id="password" required />
+                </div>
+                <div>
+                    <input type="submit" value="Логин" />
+                </div>
+            </form>
+            <button id="noaccount">Нету аккаунта?</button>
+        </div>
+        <div id="registercontainer" class="displaynone">
+            <form>
+                <div>
+                    <label for="name">Имя: </label>
+                    <input type="text" name="name" id="name" required />
+                </div>
+                <div>
+                    <label for="password">Пароль: </label>
+                    <input type="password" name="password" id="password" required />
+                </div>
+                <div>
+                    <label for="password">Подтверждение пароля: </label>
+                    <input type="password" name="retypepassword" id="retypepassword" required />
+                </div>
+                <div>
+                    <input type="submit" value="Регистрация" />
+                </div>
+            </form>
+            <button id="accountexists">Есть аккаунта?</button>
+        </div>
     </div>
+
+    <script src="register.js"></script>
   </body>
 </html>
 
