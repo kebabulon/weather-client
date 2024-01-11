@@ -9,53 +9,47 @@
     <link rel="stylesheet" href="stylesheet.css">
   </head>
   <body>
-    <div>
-        <div id="logincontainer">
-            <form class="p-4 p-md-5 border rounded-3 bg-body-tertiary"></form>
-                <div class="col-md-10 mx-auto col-lg-5">
-                    <form class="p-4 p-md-5 border rounded-3 bg-body-tertiary">
-                      <div class="form-floating mb-3">
-                        <input type="text" name="name" id="name" required class="form-control">
-                        <label for="floatingInput">Имя</label>
-                      </div>
-                      <div class="form-floating mb-3">
-                        <input type="password" name="password" id="password" required  class="form-control">
-                        <label for="floatingPassword">Пароль</label>
-                      </div>
-                        <button class="w-100 btn btn-lg btn-primary" type="submit">Войти</button>
-                        <h1></h1>
-                        <button class="w-100 btn btn-lg btn-primary" id="noaccount" type="submit">Зарегистрироваться</button>
-                        <hr class="my-4">
-                      <small class="text-body-secondary"></small>
-                    </form>
-                </div>
-            <form></form>
+    <div class="container-fluid min-vh-100 d-flex justify-content-center align-items-center no-gutters">
+
+        <div id="logincontainer" class="signin">
+            <form class="p-4 p-md-5 border rounded-3 bg-body-tertiary">
+              <div class="form-floating mb-3">
+                <input type="text" name="name" id="name" required class="form-control">
+                <label for="floatingInput">Имя</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="password" name="password" id="password" required  class="form-control">
+                <label for="floatingPassword">Пароль</label>
+              </div>
+                <button class="w-100 btn btn-lg btn-primary" type="submit">Войти</button>
+                <hr class="my-3">
+                <button class="w-100 btn btn-sm btn-secondary" id="noaccount" type="submit">Зарегистрироваться</button>
+            </form>
         </div>
-        <div id="registercontainer" class="displaynone">
-            <form class="p-4 p-md-5 border rounded-3 bg-body-tertiary"></form>
-                <div class="col-md-10 mx-auto col-lg-5">
-                    <form class="p-4 p-md-5 border rounded-3 bg-body-tertiary">
-                    <div class="form-floating mb-3">
-                        <input type="text" name="name" id="name" required class="form-control">
-                        <label for="floatingInput">Имя</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="password" name="password" id="password" required  class="form-control">
-                        <label for="floatingPassword">Пароль</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="password" name="password" id="retypepassword" required  class="form-control">
-                        <label for="floatingPassword">Подтвердите пароль</label>
-                    </div>
-                    <div>
-                        <button class="w-100 btn btn-lg btn-primary" type="submit">Зарегистрироваться</button>
-                        <h1></h1>
-                        <button class="w-100 btn btn-lg btn-primary" id="accountexists" type="submit">Есть аккаунта?</button>
-                    </div>
-                    </form>
-                </div>
-            <form class="p-4 p-md-5 border rounded-3 bg-body-tertiary"></form>
+
+        <div id="registercontainer" class="displaynone signin">
+            <form class="p-4 p-md-5 border rounded-3 bg-body-tertiary">
+            <div class="form-floating mb-3">
+                <input type="text" name="name" id="name" required class="form-control">
+                <label for="floatingInput">Имя</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="password" name="password" id="password" required  class="form-control">
+                <label for="floatingPassword">Пароль</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="password" name="password" id="retypepassword" required  class="form-control">
+                <label for="floatingPassword">Подтвердите пароль</label>
+            </div>
+            <div>
+                <button class="w-100 btn btn-lg btn-primary" type="submit">Зарегистрироваться</button>
+                <hr class="my-3">
+                <button class="w-100 btn btn-sm btn-secondary" id="accountexists" type="submit">Есть аккаунта?</button>
+            </div>
+            </form>
         </div>
+
+    </div>
     
     <script src="register.js"></script>
   </body>
