@@ -1,8 +1,10 @@
 // main.js
 
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, session } = require('electron')
+const { app, BrowserWindow, session, ipcMain } = require('electron')
 const path = require('node:path')
+
+const serverUrl = "localhost:8080"
 
 const createWindow = () => {
   // Create the browser window.
@@ -14,6 +16,8 @@ const createWindow = () => {
     }
   })
 
+  mainWindow.removeMenu();
+
   // const cookie = { url: '/', name: 'token', value: 'TEST' }
   // session.defaultSession.cookies.set(cookie)
   //   .then(() => {
@@ -21,6 +25,29 @@ const createWindow = () => {
   //   }, (error) => {
   //     console.error(error)
   //   }) 
+
+  // Create an IPC channel
+  ipcMain.handle('register', async (event, name, password) => {
+    const response = await fetch(`${serverUrl}/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: name,
+        password: password,
+      }),
+    });
+
+    result = await response.json();
+
+    if (response.ok) {
+      return "ok";
+    }
+    else {
+      return result.error;
+    }
+  })
 
 
   session.defaultSession.cookies.get({})
@@ -30,17 +57,14 @@ const createWindow = () => {
       if (cookies['token'] === undefined) {
         mainWindow.loadFile('register.html')
       } else {
-        // TODO: verify token
+        // TODO: verify the token here (exp date, fake token, etc)
+        mainWindow.loadFile('index.html')
       }
     }).catch((error) => {
       console.log(error)
     })
-
-  // and load the index.html of the app.
-  mainWindow.loadFile('index.html')
-
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished

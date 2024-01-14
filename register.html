@@ -12,40 +12,40 @@
     <div class="container-fluid min-vh-100 d-flex justify-content-center align-items-center no-gutters">
 
         <div id="logincontainer" class="signin">
-            <form class="p-4 p-md-5 border rounded-3 bg-body-tertiary">
+            <form class="p-4 p-md-5 border rounded-3 bg-body-tertiary" name="loginform" novalidate>
               <div class="form-floating mb-3">
-                <input type="text" name="name" id="name" required class="form-control">
+                <input type="text" name="name" required class="form-control" maxlength="20" pattern="^[A-Za-z0-9_]*$">
                 <label for="floatingInput">Имя</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="password" name="password" id="password" required  class="form-control">
+                <input type="password" name="password" required class="form-control" minlength="5" maxlength="20" pattern="^[A-Za-z0-9 !&quot;#$%&amp;'()*+,.:;&lt;=&gt;?@[\]^_`{|}~-]*$">
                 <label for="floatingPassword">Пароль</label>
               </div>
                 <button class="w-100 btn btn-lg btn-primary" type="submit">Войти</button>
                 <hr class="my-3">
-                <button class="w-100 btn btn-sm btn-secondary" id="noaccount" type="submit">Зарегистрироваться</button>
+                <button class="w-100 btn btn-sm btn-secondary" id="noaccount" type="button">Зарегистрироваться</button>
             </form>
         </div>
 
         <div id="registercontainer" class="displaynone signin">
-            <form class="p-4 p-md-5 border rounded-3 bg-body-tertiary">
-            <div class="form-floating mb-3">
-                <input type="text" name="name" id="name" required class="form-control">
-                <label for="floatingInput">Имя</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="password" name="password" id="password" required  class="form-control">
-                <label for="floatingPassword">Пароль</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="password" name="password" id="retypepassword" required  class="form-control">
-                <label for="floatingPassword">Подтвердите пароль</label>
-            </div>
-            <div>
-                <button class="w-100 btn btn-lg btn-primary" type="submit">Зарегистрироваться</button>
-                <hr class="my-3">
-                <button class="w-100 btn btn-sm btn-secondary" id="accountexists" type="submit">Есть аккаунта?</button>
-            </div>
+            <form class="p-4 p-md-5 border rounded-3 bg-body-tertiary" name="registerform" novalidate>
+              <div class="form-floating mb-3">
+                  <input type="text" name="name" required class="form-control" maxlength="20" pattern="^[A-Za-z0-9_]*$">
+                  <label for="name">Имя</label>
+              </div>
+              <div class="form-floating mb-3">
+                  <input type="password" name="password" required class="form-control" minlength="5" maxlength="20" pattern="^[&quot;A-Za-z0-9 !&quot;#$%&\'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~&quot;]*$">
+                  <label for="password">Пароль</label>
+              </div>
+              <div class="form-floating mb-3">
+                  <input type="password" name="retypepassword" required class="form-control" minlength="5" maxlength="20" pattern="^[&quot;A-Za-z0-9 !&quot;#$%&\'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~&quot;]*$">
+                  <label for="retypepassword">Подтвердите пароль</label>
+              </div>
+              <div>
+                  <button class="w-100 btn btn-lg btn-primary" type="submit">Зарегистрироваться</button>
+                  <hr class="my-3">
+                  <button class="w-100 btn btn-sm btn-secondary" id="accountexists" type="button">Есть аккаунта?</button>
+              </div>
             </form>
         </div>
 
