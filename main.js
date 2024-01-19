@@ -25,7 +25,6 @@ const createWindow = () => {
 
   const store = new Store();
 
-  // Create an IPC channel
   ipcMain.handle('register', async (event, name, password) => {
     const response = await fetch(`${serverUrl}/register`, {
       method: 'POST',
@@ -74,6 +73,24 @@ const createWindow = () => {
   })
 
 
+  ipcMain.handle('uploadFile', async (event) => {
+    let file = 0;
+    const response = await fetch(`${serverUrl}/uploadFile`, {
+      method: 'POST',
+      body: file,
+    });
+
+    result = await response.json();
+
+    if (response.ok) {
+      return "ok";
+    }
+    else {
+      return result.error;
+    }
+  })
+
+
   let token = store.get('token');
   if (token === undefined) {
     mainWindow.loadFile('register.html');
@@ -113,3 +130,7 @@ app.on('window-all-closed', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+try {
+	require('electron-reloader')(module);
+} catch {}
