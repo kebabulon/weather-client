@@ -10,3 +10,4 @@ window.addEventListener('DOMContentLoaded', () => {
     let flag = document.getElementsByClassName("leaflet-attribution-flag"); // no politics
     flag[0].remove();
 });
+

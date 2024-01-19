@@ -13,12 +13,15 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 1000,
     height: 800,
+    minWidth:900,
+    minHeight:500,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
     }
   })
 
-  mainWindow.removeMenu();
+  mainWindow.maximize();
+  mainWindow.setMenuBarVisibility(false);
 
   const store = new Store();
 

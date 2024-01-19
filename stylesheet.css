@@ -61,11 +61,15 @@ DISABLE THIS. USE BOOTSTRAP.
 }
 
 .mapholder {
-  width: 400px;
-  height: 400px;
+  min-width: 30%;
+  min-height: 30%;
+}
 
-  #map {
-    height: 100%;
-    width: 100%;
-  }
+.nav-h {
+  height: 4em;
+}
+
+.leaflet-container img.leaflet-tile {
+	/* See: https://bugs.chromium.org/p/chromium/issues/detail?id=600120 */
+	mix-blend-mode:multiply ;
 }
