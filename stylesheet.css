@@ -59,3 +59,13 @@ DISABLE THIS. USE BOOTSTRAP.
   max-width: 400px;
   width: 100%;
 }
+
+.mapholder {
+  width: 400px;
+  height: 400px;
+
+  #map {
+    height: 100%;
+    width: 100%;
+  }
+}

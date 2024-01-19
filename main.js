@@ -1,10 +1,12 @@
 // main.js
 
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, session, ipcMain } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
+const Store = require('electron-store')
 const path = require('node:path')
+const { jwtDecode } = require("jwt-decode");
 
-const serverUrl = "localhost:8080"
+const serverUrl = "http://127.0.0.1:5000"
 
 const createWindow = () => {
   // Create the browser window.
@@ -18,13 +20,7 @@ const createWindow = () => {
 
   mainWindow.removeMenu();
 
-  // const cookie = { url: '/', name: 'token', value: 'TEST' }
-  // session.defaultSession.cookies.set(cookie)
-  //   .then(() => {
-  //     // success
-  //   }, (error) => {
-  //     console.error(error)
-  //   }) 
+  const store = new Store();
 
   // Create an IPC channel
   ipcMain.handle('register', async (event, name, password) => {
@@ -45,24 +41,49 @@ const createWindow = () => {
       return "ok";
     }
     else {
+      return result['error'];
+    }
+  })
+
+
+  ipcMain.handle('login', async (event, name, password) => {
+    const response = await fetch(`${serverUrl}/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: name,
+        password: password,
+      }),
+    });
+
+    result = await response.json();
+
+    if (response.ok) {
+      store.set('token', result['token']);
+      mainWindow.loadFile('index.html')
+      return "ok";
+    }
+    else {
       return result.error;
     }
   })
 
 
-  session.defaultSession.cookies.get({})
-    .then((cookies) => {
-      console.log(cookies)
-      // TODO: check if the token cookie exists
-      if (cookies['token'] === undefined) {
-        mainWindow.loadFile('register.html')
-      } else {
-        // TODO: verify the token here (exp date, fake token, etc)
-        mainWindow.loadFile('index.html')
-      }
-    }).catch((error) => {
-      console.log(error)
-    })
+  let token = store.get('token');
+  if (token === undefined) {
+    mainWindow.loadFile('register.html');
+  } else {
+    try {
+      const tokenDecoded = jwtDecode(token);
+      mainWindow.loadFile('index.html');
+    }
+    catch {
+      mainWindow.loadFile('register.html');
+    }
+  }
+
   // Open the DevTools.
   mainWindow.webContents.openDevTools()
 }

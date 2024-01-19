@@ -13,51 +13,67 @@ window.addEventListener('DOMContentLoaded', () => {
         registerContainer.classList.add("displaynone");
     };
 
-    let loginForm = document.forms["loginform"];
+    function clearCustomValidity(field) {
+        field.addEventListener('input', (event) => {
+            if (field.validity.customError) {
+                field.setCustomValidity("");
+            }
+        })
+    }
+
     let registerForm = document.forms["registerform"];
 
-    function validateName(inputElement) {
-        let validityState = inputElement.validity;
-        if (validityState.valueMissing) {
-            inputElement.setCustomValidity("Незаполненое поле");
-        } else if (validityState.tooLong) {
-            inputElement.setCustomValidity("Имя должно быть короче чем 20 знаков");
-        } else if (validityState.patternMismatch) {
-            inputElement.setCustomValidity("Имя должно быть составлено только из латинского алфавита, цифр и нижных подчеркиваний");
-        } else {
-            inputElement.setCustomValidity("");
-        }
-    }
-
-    function validatePassword(inputElement) {
-        let validityState = inputElement.validity;
-        if (validityState.valueMissing) {
-            inputElement.setCustomValidity("Незаполненое поле");
-        } else if (validityState.tooShort) {
-            inputElement.setCustomValidity("Пароль должнен быть длинее или равен чем 5 знаков");
-        } else if (validityState.tooLong) {
-            inputElement.setCustomValidity("Пароль должнен быть короче или равен чем 20 знаков");
-        } else if (validityState.patternMismatch) {
-            inputElement.setCustomValidity("Пароль должнен быть составлен только из латинского алфавита, цифр и спецальны знаков ( !\"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~ )");
-        } else {
-            inputElement.setCustomValidity("");
-        }
-    }
+    clearCustomValidity(registerForm['name']);
+    clearCustomValidity(registerForm['retypepassword']);
+    clearCustomValidity(registerForm['password']);
 
     registerForm.addEventListener('submit', (event) => {
         event.preventDefault();
-        validateName(registerForm["name"]);
-        validatePassword(registerForm["password"]);
-        validatePassword(registerForm["retypepassword"]);
-
-        registerForm.reportValidity();
+        if(registerForm['password'].value !== registerForm['retypepassword'].value) {
+            registerForm['retypepassword'].setCustomValidity("Пароли не совподают");
+            registerForm.reportValidity();
+            return false;
+        }
+        let res = window.electronAPI.register(registerForm['name'].value, registerForm['password'].value);
+        res.then((res) => {
+            switch(res) {
+                case "ok":
+                    loginContainer.classList.remove("displaynone");
+                    registerContainer.classList.add("displaynone");
+                    break;
+                case "name":
+                    console.log("a");
+                    registerForm['name'].setCustomValidity("Аккаунт с таким иминем уже существует");
+                    break;
+            }
+            registerForm.reportValidity();
+        });
     });
+
+
+    let loginForm = document.forms["loginform"];
+
+    function clearCustomValidityLogin(field) {
+        field.addEventListener('input', (event) => {
+            loginForm['submit'].setCustomValidity("");
+        })
+    }
+
+    clearCustomValidityLogin(loginForm['name']);
+    clearCustomValidityLogin(loginForm['password']);
 
     loginForm.addEventListener('submit', (event) => {
         event.preventDefault();
-        validateName(registerForm["name"]);
-        validatePassword(registerForm["password"]);
-
-        loginForm.reportValidity();
+        let res = window.electronAPI.login(loginForm['name'].value, loginForm['password'].value);
+        res.then((res) => {
+            switch(res) {
+                case "ok":
+                    break;
+                case "name or password":
+                    loginForm['submit'].setCustomValidity("Имя или пароль не правильны");
+                    loginForm.reportValidity();
+                    break;
+            }
+        });
     });
 });

@@ -12,33 +12,33 @@
     <div class="container-fluid min-vh-100 d-flex justify-content-center align-items-center no-gutters">
 
         <div id="logincontainer" class="signin">
-            <form class="p-4 p-md-5 border rounded-3 bg-body-tertiary" name="loginform" novalidate>
+            <form class="p-4 p-md-5 border rounded-3 bg-body-tertiary" name="loginform">
               <div class="form-floating mb-3">
                 <input type="text" name="name" required class="form-control" maxlength="20" pattern="^[A-Za-z0-9_]*$">
                 <label for="floatingInput">Имя</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="password" name="password" required class="form-control" minlength="5" maxlength="20" pattern="^[A-Za-z0-9 !&quot;#$%&amp;'()*+,.:;&lt;=&gt;?@[\]^_`{|}~-]*$">
+                <input type="password" name="password" required class="form-control" minlength="5" maxlength="20" pattern="^[A-Za-z0-9@$!%*#?&amp;]*$" title="Пароль должнен быть составлен только из латинского алфавита, цифр и спецальны знаков ( @$!%*#?&amp; )">
                 <label for="floatingPassword">Пароль</label>
               </div>
-                <button class="w-100 btn btn-lg btn-primary" type="submit">Войти</button>
-                <hr class="my-3">
-                <button class="w-100 btn btn-sm btn-secondary" id="noaccount" type="button">Зарегистрироваться</button>
+              <button class="w-100 btn btn-lg btn-primary" type="submit" name="submit">Войти</button>
+              <hr class="my-3">
+              <button class="w-100 btn btn-sm btn-secondary" id="noaccount" type="button">Зарегистрироваться</button>
             </form>
         </div>
 
         <div id="registercontainer" class="displaynone signin">
-            <form class="p-4 p-md-5 border rounded-3 bg-body-tertiary" name="registerform" novalidate>
+            <form class="p-4 p-md-5 border rounded-3 bg-body-tertiary" name="registerform">
               <div class="form-floating mb-3">
                   <input type="text" name="name" required class="form-control" maxlength="20" pattern="^[A-Za-z0-9_]*$">
                   <label for="name">Имя</label>
               </div>
               <div class="form-floating mb-3">
-                  <input type="password" name="password" required class="form-control" minlength="5" maxlength="20" pattern="^[&quot;A-Za-z0-9 !&quot;#$%&\'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~&quot;]*$">
+                  <input type="password" name="password" required class="form-control" minlength="5" maxlength="20" pattern="^[A-Za-z0-9@$!%*#?&amp;]*$" title="Пароль должнен быть составлен только из латинского алфавита, цифр и спецальны знаков ( @$!%*#?&amp; )">
                   <label for="password">Пароль</label>
               </div>
               <div class="form-floating mb-3">
-                  <input type="password" name="retypepassword" required class="form-control" minlength="5" maxlength="20" pattern="^[&quot;A-Za-z0-9 !&quot;#$%&\'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~&quot;]*$">
+                  <input type="password" name="retypepassword" required class="form-control" minlength="5" maxlength="20" pattern="^[A-Za-z0-9@$!%*#?&amp;]*$" title="Пароль должнен быть составлен только из латинского алфавита, цифр и спецальны знаков ( @$!%*#?&amp; )">
                   <label for="retypepassword">Подтвердите пароль</label>
               </div>
               <div>
