@@ -18,17 +18,12 @@
         <p class="h5 mb-3">Выбранный файл: <span id="current-file" class="text-muted">Файл не выбран</span></p>
         <p class="h5">Файлы: <span id="current-file"></span></p>
 
-        <div class="d-grid d-grid gap-2">
+        <div id="file-container" class="d-grid d-grid gap-2">
 
-          <div class="d-none row bg-body-secondary py-3 ps-2 mx-1">
-            <div class="container-fluid">
-              <span class="ms-0 me-3 h5"><strong>Файл 1</strong></span>
-              <button id="use" class="d-inline btn btn-sm btn-primary">Использовать</button>
-              <button id="delete" class="float-end d-inline btn btn-sm btn-danger">Удалить</button>
-            </div>
-          </div>
+        </div>
 
         <div class="row-12 mt-2">
+          <input type="file" id="file-input" accept="text/csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" class="d-none"/>
           <button type="button" id="upload" class="btn btn-lg btn-primary">Загрузить файл</button>
         </div>
 
@@ -36,5 +31,7 @@
       </div>
 
     </div>
+
+    <script src="filemanagement.js"></script>
   </body>
 </html>

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <!-- https://developer.mozilla.org/en-us/docs/web/http/csp -->
-    <meta http-equiv="content-security-policy" content="default-src 'self'; script-src 'self'; img-src 'self' https://*.tile.osm.org/;">
+    <meta http-equiv="content-security-policy" content="default-src 'self'; script-src 'self'; img-src 'self' https://*.tile.osm.org/; style-src 'self' 'unsafe-inline';">
     <title> weather app </title>
 
     <link rel="stylesheet" href="node_modules\bootstrap\dist\css\bootstrap.min.css">
@@ -57,7 +57,7 @@
             </div>
 
             <div class="col h-100 p-0">
-              <iframe class="d-block w-100 h-100" id="mainframe" name="mainframe" frameborder="0" src="pages/filemanagement.html"></iframe>
+              <webview class="w-100 h-100" id="mainframe" name="mainframe" frameborder="0" src="pages/filemanagement.html" preload="preload.js" nodeintegration></webview>
             </div>
 
           </div>

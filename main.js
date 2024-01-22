@@ -1,7 +1,9 @@
 // main.js
 
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { globalShortcut, app, BrowserWindow, ipcMain, dialog } = require('electron')
+const fs = require('fs');
+const { Blob } = require("buffer");
 const Store = require('electron-store')
 const path = require('node:path')
 const { jwtDecode } = require("jwt-decode");
@@ -16,14 +18,31 @@ const createWindow = () => {
     minWidth:900,
     minHeight:500,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, 'preload.js'),
+      webviewTag: true,
     }
   })
 
   mainWindow.maximize();
-  mainWindow.setMenuBarVisibility(false);
+  //mainWindow.setMenuBarVisibility(false);
+  mainWindow.setMenu(null);
+
+  globalShortcut.register('CommandOrControl+=', () => {
+    const zoomLevel = mainWindow.webContents.getZoomLevel();
+    mainWindow.webContents.setZoomLevel(zoomLevel+1);
+  })
+
+  globalShortcut.register('CommandOrControl+-', () => {
+    const zoomLevel = mainWindow.webContents.getZoomLevel();
+    mainWindow.webContents.setZoomLevel(zoomLevel-1);
+  })
+
+  globalShortcut.register('CommandOrControl+0', () => {
+    mainWindow.webContents.setZoomLevel(0);
+  })
 
   const store = new Store();
+  let token = store.get('token');
 
   ipcMain.handle('register', async (event, name, password) => {
     const response = await fetch(`${serverUrl}/register`, {
@@ -63,6 +82,7 @@ const createWindow = () => {
     result = await response.json();
 
     if (response.ok) {
+      token = result['token'];
       store.set('token', result['token']);
       mainWindow.loadFile('index.html')
       return "ok";
@@ -73,25 +93,51 @@ const createWindow = () => {
   })
 
 
-  ipcMain.handle('uploadFile', async (event) => {
-    let file = 0;
-    const response = await fetch(`${serverUrl}/uploadFile`, {
+  ipcMain.handle('uploadFile', async (event, filePath, fileName) => {
+    let data = new FormData();
+
+    let buffer = fs.readFileSync(filePath);
+    let blob = new Blob([buffer]);
+
+    data.append('file', blob, fileName);
+    console.log(fileName);
+
+    const response = await fetch(`${serverUrl}/upload`, {
       method: 'POST',
-      body: file,
+      headers: {
+        'x-token': token,
+      },
+      body: data,
     });
 
     result = await response.json();
 
     if (response.ok) {
-      return "ok";
+      return true;
+    }
+    return false;
+  })
+
+  ipcMain.handle('uploads', async (event) => {
+    const response = await fetch(`${serverUrl}/uploads`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-token': token,
+      },
+    });
+
+    result = await response.json();
+
+    if (response.ok) {
+      return result['files'];
     }
     else {
-      return result.error;
+      return result['error'];
     }
   })
 
 
-  let token = store.get('token');
   if (token === undefined) {
     mainWindow.loadFile('register.html');
   } else {
@@ -100,6 +146,8 @@ const createWindow = () => {
       mainWindow.loadFile('index.html');
     }
     catch {
+      store.set('token', "");
+      token = "";
       mainWindow.loadFile('register.html');
     }
   }
