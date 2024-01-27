@@ -13,8 +13,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
     let mainFrame = document.getElementById("mainframe");
 
+    let bound = false;
+
     mainFrame.addEventListener("dom-ready", (event) => {
-        mainFrame.openDevTools();
+        if(bound) return;
+        bound = true;
+
+        //mainFrame.openDevTools();
 
         mainFrame.addEventListener('ipc-message', event => {
             switch(event.channel) {
@@ -23,6 +28,15 @@ window.addEventListener('DOMContentLoaded', () => {
                     break;
             }
         })
+
+        var anchors = document.getElementsByClassName("nav-link");
+        for (var a = 0; a < anchors.length; a++) {
+            var anchor = anchors[a];
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                mainFrame.src = e.target.href;
+            });
+        } 
     })
 });
 

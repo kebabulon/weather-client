@@ -143,7 +143,14 @@ const createWindow = () => {
   } else {
     try {
       const tokenDecoded = jwtDecode(token);
-      mainWindow.loadFile('index.html');
+      if (tokenDecoded['exp'] < Math.floor(Date.now() / 1000)) {
+        store.set('token', "");
+        token = "";
+        mainWindow.loadFile('register.html');
+      }
+      else {
+        mainWindow.loadFile('index.html');
+      }
     }
     catch {
       store.set('token', "");
