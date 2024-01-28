@@ -28,6 +28,7 @@ function fromHTML(html, trim = true) {
 window.addEventListener('DOMContentLoaded', () => {
     let uploadButton = document.getElementById("upload");
     let fileContainer = document.getElementById("file-container");
+    let currentFile = document.getElementById("current-file");
 
 
     function addFile(fileName) {
@@ -37,9 +38,11 @@ window.addEventListener('DOMContentLoaded', () => {
         newFileElement.getElementsByClassName("file-name")[0].innerHTML = fileName;
         newFileElement.getElementsByClassName("file-use")[0].addEventListener("click", (event) => {
             window.electronAPI.sendToHost("filemanagement", "use", fileName);
+            currentFile.innerHTML = fileName;
         })
         newFileElement.getElementsByClassName("file-delete")[0].addEventListener("click", (event) => {
             newFileElement.remove();
+            currentFile.innerHTML = "Файл не выбран";
             window.electronAPI.sendToHost("filemanagement", "delete", fileName);
         })
     }
@@ -55,6 +58,7 @@ window.addEventListener('DOMContentLoaded', () => {
     let fileInput = document.getElementById("file-input");
 
     uploadButton.addEventListener("click", (event) => {
+        fileInput.value = null;
         fileInput.click();
     });
 
@@ -80,5 +84,9 @@ window.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
+
+    window.electronAPI.on('filemanagement', (e, fileName) => {
+        currentFile.innerHTML = fileName;
+    })
 
 });

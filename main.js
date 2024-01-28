@@ -100,6 +100,7 @@ const createWindow = () => {
     let blob = new Blob([buffer]);
 
     data.append('file', blob, fileName);
+    console.log(1);
     console.log(fileName);
 
     const response = await fetch(`${serverUrl}/upload`, {
@@ -137,6 +138,27 @@ const createWindow = () => {
     }
   })
 
+  ipcMain.handle('deleteFile', async (event, fileName) => {
+    const response = await fetch(`${serverUrl}/upload`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-token': token,
+      },
+      body: JSON.stringify({
+        filename: fileName,
+      }),
+    });
+
+    result = await response.json();
+
+    if (response.ok) {
+      return "ok";
+    }
+    else {
+      return result['error'];
+    }
+  })
 
   if (token === undefined) {
     mainWindow.loadFile('register.html');

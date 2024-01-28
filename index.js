@@ -5,7 +5,7 @@ L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
-let currentFile;
+let currentFile = "Файл не выбран";
 
 window.addEventListener('DOMContentLoaded', () => {
     let flag = document.getElementsByClassName("leaflet-attribution-flag"); // no politics
@@ -16,15 +16,25 @@ window.addEventListener('DOMContentLoaded', () => {
     let bound = false;
 
     mainFrame.addEventListener("dom-ready", (event) => {
+        let pageName = mainFrame.src.split('/').pop().split('.')[0];
+        if(pageName === "filemanagement") {
+            mainFrame.send("filemanagement", currentFile);
+        }
         if(bound) return;
         bound = true;
 
-        //mainFrame.openDevTools();
+        mainFrame.openDevTools();
 
         mainFrame.addEventListener('ipc-message', event => {
             switch(event.channel) {
                 case "filemanagement":
-                    console.log(event);
+                    if(event.args[0] == "use") {
+                        currentFile = event.args[1];
+                    }
+                    if(event.args[0] == "delete") {
+                        currentFile = "Файл не выбран";
+                        window.electronAPI.deleteFile(event.args[1]);
+                    }
                     break;
             }
         })
