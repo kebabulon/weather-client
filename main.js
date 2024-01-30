@@ -180,6 +180,8 @@ const createWindow = () => {
       mainWindow.loadFile('register.html');
     }
   }
+  // TODO: delete this!
+  mainWindow.loadFile('index.html');
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools()

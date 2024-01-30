@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <!-- https://developer.mozilla.org/en-us/docs/web/http/csp -->
-    <meta http-equiv="content-security-policy" content="default-src 'self'; script-src 'self'; img-src 'self' https://*.tile.osm.org/; style-src 'self' 'unsafe-inline';">
+    <meta http-equiv="content-security-policy" content="default-src 'self'; script-src 'self'; img-src 'self' https://*.tile.osm.org/ https://*.sat.owm.io/; style-src 'self' 'unsafe-inline';">
     <title> weather app </title>
 
     <link rel="stylesheet" href="node_modules\bootstrap\dist\css\bootstrap.min.css">
@@ -51,12 +51,14 @@
                 <div class="w-100 h-50 mb-3" id="map"></div>
                 <div class="row justify-content-center">
 
+                  <!--
                   <div class="col-8">
                     <div class="input-group">
                       <span class="input-group-text" id="basic-addon1">Город</span>
                       <input type="text" class="form-control" aria-describedby="basic-addon1">
                     </div>
                   </div>
+                  !-->
 
                 </div>
             </div>
