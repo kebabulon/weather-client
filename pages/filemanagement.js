@@ -34,9 +34,10 @@ window.addEventListener('DOMContentLoaded', () => {
     let uploads = window.electronAPI.uploads();
     uploads.then((uploads) => {
         uploads.forEach(element => {
-           addFile(element);
+            addFile(element);
         });
     })
+
 
     let fileInput = document.getElementById("file-input");
 

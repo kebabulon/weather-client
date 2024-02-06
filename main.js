@@ -181,7 +181,7 @@ const createWindow = () => {
     }
   }
   // TODO: delete this!
-  mainWindow.loadFile('index.html');
+  // mainWindow.loadFile('index.html');
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools()
