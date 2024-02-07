@@ -16,13 +16,6 @@ L.tileLayer(layerUrl, {
 }).addTo(map);
 
 
-const dayElement = '\
-<tr> \
-<th scope="row">1</th> \
-<td>-2</td> \
-<td>Ветер</td> \
-</tr> \
-'
 
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -31,13 +24,38 @@ window.addEventListener('DOMContentLoaded', () => {
 
     let predictButton = document.getElementById("predict");
 
-    let options = document.getElementById("file-input");
-
-    let tempText = document.getElementById("temp");
-    let weatherText = document.getElementById("weather");
-
+    let tableFrame = document.getElementById("table-frame");
 
     predictButton.addEventListener("click", (event) => {
+        let radio = document.querySelector('input[name="time"]:checked').value;
+
+        let res = window.electronAPI.predict(parseInt(radio));
+
+        res.then((res) => {
+            tableFrame.innerHTML = '';
+
+            for(let i = 0; i < res.length; i++) {
+                let el = res[i];
+
+                let d = new Date(Date.now() + i * 24 * 60 * 60 * 1000);
+
+                let dayElement = `\
+                <tr> \
+                <th scope="row">${d.toISOString().slice(0, 10)}</th> \
+                <td>${el["temp"].toFixed(0)}</td> \
+                <td>${(el["wetness"].toFixed(2))}%</td> \
+                <td>${el["wind_speed"].toFixed(2)}</td> \
+                <td>${el["volume"].toFixed(2)}</td> \
+                </tr> \
+                `
+
+                let dayEl = fromHTML(dayElement);
+                tableFrame.appendChild(dayEl);
+            }
+        })
+
+
+
 
     });
 

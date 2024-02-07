@@ -160,6 +160,29 @@ const createWindow = () => {
     }
   })
 
+  ipcMain.handle('predict', async (event, days) => {
+    const response = await fetch(`${serverUrl}/predict`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-token': token,
+      },
+      body: JSON.stringify({
+        days: days,
+      }),
+    });
+
+    result = await response.json();
+
+    if (response.ok) {
+      return result['days'];
+    }
+    else {
+      return result['error'];
+    }
+  })
+
+
   if (token === undefined) {
     mainWindow.loadFile('register.html');
   } else {
