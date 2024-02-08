@@ -25,6 +25,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
     let bound = false;
 
+
+    let logoutButton = document.getElementById("logout");
+
     mainFrame.addEventListener("dom-ready", (event) => {
         let pageName = mainFrame.src.split('/').pop().split('.')[0];
         if(pageName === "filemanagement") {
@@ -33,7 +36,7 @@ window.addEventListener('DOMContentLoaded', () => {
         if(bound) return;
         bound = true;
 
-        mainFrame.openDevTools();
+        // mainFrame.openDevTools();
 
         mainFrame.addEventListener('ipc-message', event => {
             switch(event.channel) {
@@ -54,9 +57,19 @@ window.addEventListener('DOMContentLoaded', () => {
             var anchor = anchors[a];
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                mainFrame.src = e.target.href;
+                if (e.target.id == "monitor") {
+                    window.electronAPI.monitor();
+                }
+                else {
+                    mainFrame.src = e.target.href;
+                }
             });
         } 
+
+        logoutButton.addEventListener('click', function (e) {
+            window.electronAPI.logout();
+        });
+        
     })
 });
 

@@ -10,14 +10,15 @@
   "author": "keb",
   "license": "",
   "devDependencies": {
+    "electron-packager": "^17.1.2",
     "electron-reloader": "^1.2.3"
   },
   "dependencies": {
-    "leaflet.tilelayer.nogap": "^0.3.0",
     "bootstrap": "^5.3.2",
     "electron": "^28.1.4",
     "electron-store": "^8.1.0",
     "jwt-decode": "^4.0.0",
-    "leaflet": "^1.9.4"
+    "leaflet": "^1.9.4",
+    "leaflet.tilelayer.nogap": "^0.3.0"
   }
 }

@@ -23,6 +23,7 @@ window.addEventListener('DOMContentLoaded', () => {
     flag[0].remove();
 
     let predictButton = document.getElementById("predict");
+    let exportButton = document.getElementById("export");
 
     let tableFrame = document.getElementById("table-frame");
 
@@ -52,10 +53,13 @@ window.addEventListener('DOMContentLoaded', () => {
                 let dayEl = fromHTML(dayElement);
                 tableFrame.appendChild(dayEl);
             }
-        })
 
+            exportButton.classList.remove("d-none");
+        });
 
-
+        exportButton.addEventListener("click", (event) => {
+            window.electronAPI.saveFile();
+        });
 
     });
 

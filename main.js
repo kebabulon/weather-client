@@ -24,8 +24,8 @@ const createWindow = () => {
   })
 
   mainWindow.maximize();
-  //mainWindow.setMenuBarVisibility(false);
-  mainWindow.setMenu(null);
+  mainWindow.setMenuBarVisibility(false);
+  //mainWindow.setMenu(null);
 
   globalShortcut.register('CommandOrControl+=', () => {
     const zoomLevel = mainWindow.webContents.getZoomLevel();
@@ -183,6 +183,66 @@ const createWindow = () => {
   })
 
 
+  ipcMain.handle('monitor', async (event) => {
+    const win = new BrowserWindow({
+        height: 300,
+        width: 300,
+        minHeight: 300,
+        minWidth: 300,
+        maxHeight: 350,
+        maxWidth: 350,
+        webPreferences: {
+          preload: path.join(__dirname, 'preload.js'),
+          webviewTag: true,
+        }
+    });
+
+    //mainWindow.setMenuBarVisibility(false);
+    win.setMenu(null);
+
+    win.loadFile('monitor.html');
+  })
+
+  ipcMain.handle('logout', async (event) => {
+    store.set('token', "");
+    token = "";
+
+    mainWindow.loadFile('register.html');
+  })
+
+  ipcMain.handle('saveFile', async (event) => {
+    dialog.showSaveDialog({ 
+            // title: 'Select the File Path to save', 
+            // defaultPath: path.join(__dirname, 'pages/graphs/export.rar'), 
+            // defaultPath: path.join(__dirname, '../assets/'), 
+            buttonLabel: 'Save', 
+            // Restricting the user to only Text Files. 
+            filters: [ 
+                { 
+                    // name: 'Text Files', 
+                    extensions: ['zip'] 
+                }, ], 
+            properties: [] 
+        }).then(file => { 
+            // Stating whether dialog operation was cancelled or not. 
+            console.log(file.canceled); 
+            if (!file.canceled) { 
+                console.log(file.filePath.toString()); 
+                  
+                // Creating and Writing to the sample.txt file 
+                fs.copyFile(path.join(__dirname, 'pages/graphs/export.zip'),
+                  file.filePath.toString(),  
+                  function (err) { 
+                    if (err) throw err; 
+                    console.log('Saved!'); 
+                }); 
+            } 
+        }).catch(err => { 
+            console.log(err) 
+        }); 
+  })
+
+
   if (token === undefined) {
     mainWindow.loadFile('register.html');
   } else {
@@ -207,7 +267,7 @@ const createWindow = () => {
   // mainWindow.loadFile('index.html');
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished

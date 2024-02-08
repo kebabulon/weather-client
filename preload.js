@@ -12,5 +12,10 @@ contextBridge.exposeInMainWorld('electronAPI', {
   uploads: () => ipcRenderer.invoke('uploads'),
 
   predict: (radio) => ipcRenderer.invoke('predict', radio),
+  saveFile: () => ipcRenderer.invoke('saveFile'),
+
+  monitor: () => ipcRenderer.invoke('monitor'),
+
+  logout: () => ipcRenderer.invoke('logout'),
   sendToHost: ipcRenderer.sendToHost,
 })
